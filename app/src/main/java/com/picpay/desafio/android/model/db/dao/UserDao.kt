@@ -1,29 +1,19 @@
 package com.picpay.desafio.android.model.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.picpay.desafio.android.model.data.User
 import com.picpay.desafio.android.model.db.DbContract
 import com.picpay.desafio.android.model.db.DbContract.UserContract.TABLE_NAME
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun doInsert(user: User): Long
+    @Query("SELECT * FROM $TABLE_NAME")
+    fun doGetAll(): Flow<List<User>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun doInsertOrUpdate(user: User): Long
-
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun doUpdate(user: User): Int
-
-    @Delete
-    suspend fun doDelete(user: User): Int
-
-    @Query("SELECT * FROM $TABLE_NAME")
-    suspend fun doGetAll(): List<User?>
-
-    @Query("SELECT * FROM $TABLE_NAME WHERE ${DbContract.UserContract.Collumns.ID} = :id")
-    suspend fun doGetById(id: Int) : User?
+    suspend fun doInsertAll(users: List<User>)
 
     @Query("DELETE FROM $TABLE_NAME")
     fun clear()

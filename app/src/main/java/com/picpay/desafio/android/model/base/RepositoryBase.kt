@@ -1,12 +1,11 @@
 package com.picpay.desafio.android.model.base
 
+import androidx.lifecycle.LiveData
+import com.picpay.desafio.android.model.data.User
+import kotlinx.coroutines.flow.Flow
+
 interface RepositoryBase<T> {
-    suspend fun doInsert(t: T): Long
-    suspend fun doGetById(id: Int): T?
-    suspend fun doGetAll(): List<T>?
-    suspend fun doUpdate(t: T): Int
-    suspend fun doInsertOrUpdate(t: T)
-    suspend fun doBulkInsert(tList: List<T>)
-    suspend fun doBulkInsertOrUpdate(tList: List<T>)
+    fun doGetAll(): Flow<List<T>>
+    suspend fun doInsertAll(users: List<User>)
     fun clear()
 }

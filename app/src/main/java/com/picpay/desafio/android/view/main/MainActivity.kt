@@ -16,9 +16,12 @@ import com.picpay.desafio.android.view.main.adapter.UserListAdapter
 import com.picpay.desafio.android.model.data.User
 import com.picpay.desafio.android.model.remote.UserService
 import com.picpay.desafio.android.view.base.BaseActivity
+import com.picpay.desafio.android.viewmodel.UserViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import androidx.lifecycle.observe
+import com.picpay.desafio.android.helper.visible
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(R.layout.activity_main) {
@@ -28,7 +31,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     private lateinit var adapter: UserListAdapter
 
     @Inject
-    lateinit var dataManager: DataManager
+    lateinit var viewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,23 +49,20 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         progressBar.visibility = View.VISIBLE
-        dataManager.userService.getUsers()
-            .enqueue(object : Callback<List<User>> {
-                override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                    val message = getString(R.string.error)
 
-                    progressBar.visibility = View.GONE
-                    recyclerView.visibility = View.GONE
+        viewModel.users.observe(this){
+            recyclerView.visible = true
+            adapter.users = it
+        }
+        viewModel.loading.observe(this){
+            progressBar.visible = it
+        }
 
-                    Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-                override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                    progressBar.visibility = View.GONE
-
-                    adapter.users = response.body()!!
-                }
-            })
+        viewModel.erroToast.observe(this){
+            recyclerView.visible = false
+            val message = it?:getString(R.string.error)
+            Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 }
