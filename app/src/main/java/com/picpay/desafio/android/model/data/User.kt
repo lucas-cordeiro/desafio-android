@@ -1,7 +1,8 @@
-package com.picpay.desafio.android
+package com.picpay.desafio.android.model.data
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.picpay.desafio.android.model.base.Model
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -10,4 +11,6 @@ data class User(
     @SerializedName("name") val name: String,
     @SerializedName("id") val id: Int,
     @SerializedName("username") val username: String
-) : Parcelable
+) : Parcelable, Model {
+    override fun diff() = name
+}
