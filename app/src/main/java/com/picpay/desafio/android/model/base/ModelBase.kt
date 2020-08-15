@@ -1,5 +1,5 @@
 package com.picpay.desafio.android.model.base
 
-interface Model {
+interface ModelBase {
     fun diff() : Any?
 }
