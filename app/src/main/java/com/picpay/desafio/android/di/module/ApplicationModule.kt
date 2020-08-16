@@ -8,6 +8,8 @@ import com.picpay.desafio.android.model.AppDataManager
 import com.picpay.desafio.android.model.DataManager
 import com.picpay.desafio.android.model.db.DbController
 import com.picpay.desafio.android.model.db.DbControllerImpl
+import com.picpay.desafio.android.model.prefs.PreferencesController
+import com.picpay.desafio.android.model.prefs.PreferencesControllerImpl
 import com.picpay.desafio.android.model.repository.PicPayDatabase
 import com.picpay.desafio.android.model.repository.user.UserRepository
 import com.picpay.desafio.android.model.repository.user.UserRepositoryImpl
@@ -38,6 +40,12 @@ class ApplicationModule(private val mApplication: Application) {
     @Singleton
     internal fun provideDbController(dbController: DbControllerImpl): DbController {
         return dbController
+    }
+
+    @Provides
+    @Singleton
+    internal fun providePreferenceController(@ApplicationContext context: Context): PreferencesController{
+        return PreferencesControllerImpl(context)
     }
 
     @Provides

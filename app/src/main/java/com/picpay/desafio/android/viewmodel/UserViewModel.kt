@@ -1,22 +1,19 @@
 package com.picpay.desafio.android.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.*
-import com.picpay.desafio.android.R
 import com.picpay.desafio.android.model.DataManager
-import com.picpay.desafio.android.model.data.User
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.processNextEventInCurrentThread
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.net.UnknownHostException
 import javax.inject.Inject
 
+
 class UserViewModel @Inject constructor(private val dataManager: DataManager) : ViewModel(){
+
     private suspend fun doUpdateCache(){
-        if(shouldUpdateUsersCache()) fetchRecentPlants()
+        if(shouldUpdateUsersCache())
+            fetchRecentPlants()
     }
 
     private suspend fun fetchRecentPlants(){
@@ -25,7 +22,13 @@ class UserViewModel @Inject constructor(private val dataManager: DataManager) : 
     }
 
     private fun shouldUpdateUsersCache() : Boolean {
-        return true
+        Log.d("BUG", "currentCacheTime: ${dataManager.currentCacheTime}")
+        return if(System.currentTimeMillis() - dataManager.currentCacheTime > 1000 * 60 * 1){
+            dataManager.currentCacheTime = System.currentTimeMillis()
+            true
+        }else{
+            false
+        }
     }
 
     private val _loading = MutableLiveData<Boolean>(false)
@@ -39,9 +42,15 @@ class UserViewModel @Inject constructor(private val dataManager: DataManager) : 
     val users = dataManager.userRepository.doGetAll().asLiveData()
 
     init{
+        Log.d("BUG", "init")
         launchDataLoad {
             doUpdateCache()
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("BUG", "onCleared")
     }
 
     private fun launchDataLoad(block: suspend () -> Unit): Job {
