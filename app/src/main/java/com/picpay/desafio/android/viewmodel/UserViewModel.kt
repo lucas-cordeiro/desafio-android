@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.picpay.desafio.android.model.DataManager
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
 import javax.inject.Inject
@@ -41,15 +42,9 @@ class UserViewModel (private val dataManager: DataManager) : ViewModel(){
     val users = dataManager.userRepository.doGetAll().asLiveData()
 
     init{
-        Log.d("BUG", "init")
         launchDataLoad {
             doUpdateCache()
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("BUG", "onCleared")
     }
 
     private fun launchDataLoad(block: suspend () -> Unit): Job {

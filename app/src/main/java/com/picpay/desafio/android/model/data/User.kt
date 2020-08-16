@@ -15,10 +15,10 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class User(
     @PrimaryKey
-    @SerializedName("id") val id: Int,
-    @SerializedName("img") val img: String,
-    @SerializedName("name") val name: String,
-    @SerializedName("username") val username: String
+    @SerializedName("id") var id: Int? = null,
+    @SerializedName("img") var img: String? = null,
+    @SerializedName("name") var name: String? = null,
+    @SerializedName("username") var username: String? = null
 ) : Parcelable, ModelBase {
     override fun diff() = name
 }

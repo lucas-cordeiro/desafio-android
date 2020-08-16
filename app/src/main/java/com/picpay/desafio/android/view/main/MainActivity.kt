@@ -31,7 +31,6 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("BUG", "onCreate")
         activityComponent.inject(this)
         viewModel = ViewModelProvider(this, UserViewModelFactory(dataManager)).get(UserViewModel::class.java)
 

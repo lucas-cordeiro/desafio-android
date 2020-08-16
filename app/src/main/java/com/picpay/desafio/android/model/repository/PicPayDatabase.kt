@@ -7,7 +7,7 @@ import com.picpay.desafio.android.model.db.dao.UserDao
 
 @Database(
     entities = [User::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class PicPayDatabase: RoomDatabase() {
