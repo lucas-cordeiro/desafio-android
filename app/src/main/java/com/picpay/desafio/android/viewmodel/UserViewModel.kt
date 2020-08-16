@@ -9,7 +9,7 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 
-class UserViewModel @Inject constructor(private val dataManager: DataManager) : ViewModel(){
+class UserViewModel (private val dataManager: DataManager) : ViewModel(){
 
     private suspend fun doUpdateCache(){
         if(shouldUpdateUsersCache())
@@ -22,7 +22,6 @@ class UserViewModel @Inject constructor(private val dataManager: DataManager) : 
     }
 
     private fun shouldUpdateUsersCache() : Boolean {
-        Log.d("BUG", "currentCacheTime: ${dataManager.currentCacheTime}")
         return if(System.currentTimeMillis() - dataManager.currentCacheTime > 1000 * 60 * 1){
             dataManager.currentCacheTime = System.currentTimeMillis()
             true
