@@ -9,7 +9,10 @@ import retrofit2.http.GET
 interface UserService {
 
     @GET("users")
-    suspend fun getUsers(): List<User>
+    suspend fun getUsers(): List<User>?
+
+    @GET("users")
+    fun getUsersCall(): Call<List<User>>
 
     companion object Factory{
         fun create(): UserService {

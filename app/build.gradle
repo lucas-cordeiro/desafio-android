@@ -14,10 +14,9 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
         vectorDrawables.useSupportLibrary = true
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.picpay.desafio.android.helper.PicPayAndroidJUnitRunner"
     }
     buildTypes {
         debug {
@@ -31,6 +30,11 @@ android {
         }
     }
 
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
@@ -38,6 +42,13 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    packagingOptions {
+        exclude 'licenses/javolution.license.TXT'
+        exclude 'org/apache/maven/project/pom-4.0.0.xml'
+        exclude 'org/cyberneko/html/res/HTMLlat1.properties'
+        exclude 'licenses/extreme.indiana.edu.license.TXT'
     }
 }
 
@@ -91,13 +102,35 @@ dependencies {
 
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.mockito:mockito-core:$mockito_version"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
-    testImplementation "androidx.arch.core:core-testing:$core_testing_version"
-    implementation "org.koin:koin-test:$koin_version"
+    testImplementation "org.mockito:mockito-inline:$mockito_version"
+    testImplementation('com.nhaarman:mockito-kotlin-kt1.1:1.5.0') {
+        exclude group: 'org.jetbrains.kotlin'
+    }
 
-    androidTestImplementation "androidx.test:runner:$test_runner_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    testImplementation "com.github.fabioCollini.daggermock:daggermock-kotlin:$dagger_mock"
+    testImplementation "com.github.fabioCollini.daggermock:daggermock:$dagger_mock"
+
+    testImplementation 'org.assertj:assertj-core:2.5.0'
+
+
+    testImplementation "org.robolectric:robolectric:3.8"
+    testImplementation "androidx.test:rules:$runner_version"
+    testImplementation "androidx.test:runner:$runner_version"
+
+    testImplementation "com.github.tmurakami:dexopener:$dex_opener"
+    testImplementation "org.mockito:mockito-android:$mockito_version"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
+    testImplementation('com.nhaarman:mockito-kotlin-kt1.1:1.5.0') {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+
+    androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test:core-ktx:$core_ktx_test_version"
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espresso_version") {
+        exclude group: 'javax.inject', module: 'javax.inject'
+        exclude group: 'com.squareup', module: 'javawriter'
+    }
+
 
     implementation "com.pixplicity.easyprefs:library:$pref_version"
 }

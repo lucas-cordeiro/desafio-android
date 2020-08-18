@@ -1,13 +1,11 @@
 package com.picpay.desafio.android.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
+import com.picpay.desafio.android.helper.CACHE_DURATION
 import com.picpay.desafio.android.model.DataManager
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.net.UnknownHostException
-import javax.inject.Inject
 
 
 class UserViewModel (private val dataManager: DataManager) : ViewModel(){
@@ -17,13 +15,15 @@ class UserViewModel (private val dataManager: DataManager) : ViewModel(){
             fetchRecentPlants()
     }
 
-    private suspend fun fetchRecentPlants(){
+    suspend fun fetchRecentPlants(){
         val users = dataManager.userService.getUsers()
-        dataManager.userRepository.doInsertAll(users)
+        users?.let {
+            dataManager.userRepository.doInsertAll(it)
+        }
     }
 
-    private fun shouldUpdateUsersCache() : Boolean {
-        return if(System.currentTimeMillis() - dataManager.currentCacheTime > 1000 * 60 * 1){
+    fun shouldUpdateUsersCache() : Boolean {
+        return if(System.currentTimeMillis() - dataManager.currentCacheTime > CACHE_DURATION){
             dataManager.currentCacheTime = System.currentTimeMillis()
             true
         }else{

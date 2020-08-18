@@ -16,10 +16,8 @@ class UserListItemViewHolder(
 ) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(user: User) {
-        Log.d("BUG", "bind: ${user.id}")
         itemView.name.text = user.name?:"Anonímo"
         itemView.username.text = user.username?:"Anonímo"
-        Log.d("BUG", "bind: ${user.id} picasso")
         if(user.img.isNullOrBlank()){
             itemView.progressBar.visible = false
             itemView.picture.setImageResource(R.drawable.ic_round_account_circle)
