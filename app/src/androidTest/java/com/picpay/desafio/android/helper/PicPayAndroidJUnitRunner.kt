@@ -4,8 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
 import com.github.tmurakami.dexopener.DexOpener
-
-
+import com.picpay.desafio.android.PicPayApp
 
 
 class PicPayAndroidJUnitRunner : AndroidJUnitRunner(){
@@ -20,6 +19,6 @@ class PicPayAndroidJUnitRunner : AndroidJUnitRunner(){
         context: Context?
     ): Application? {
         DexOpener.install(this) // Call me first!
-        return super.newApplication(cl, className, context)
+        return super.newApplication(cl, PicPayApp::class.java.name, context)
     }
 }

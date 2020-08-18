@@ -106,6 +106,9 @@ dependencies {
     testImplementation('com.nhaarman:mockito-kotlin-kt1.1:1.5.0') {
         exclude group: 'org.jetbrains.kotlin'
     }
+    androidTestImplementation('com.nhaarman:mockito-kotlin-kt1.1:1.5.0') {
+        exclude group: 'org.jetbrains.kotlin'
+    }
 
     testImplementation "com.github.fabioCollini.daggermock:daggermock-kotlin:$dagger_mock"
     testImplementation "com.github.fabioCollini.daggermock:daggermock:$dagger_mock"
@@ -119,6 +122,7 @@ dependencies {
     testImplementation "com.github.tmurakami:dexopener:$dex_opener"
     testImplementation "org.mockito:mockito-android:$mockito_version"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
+    androidTestImplementation "com.github.tmurakami:dexopener:$dex_opener"
 
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test:core-ktx:$core_ktx_test_version"
