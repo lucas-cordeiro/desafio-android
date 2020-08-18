@@ -18,6 +18,8 @@ buildscript {
         junit_version = '4.12'
         mockito_version = '3.5.0'
         mockito_kotlin_version = '2.1.0'
+        robolectric_version = '3.8'
+        assertj_version = '2.5.0'
 
         dagger_mock = '0.8.5'
         runner_version = '1.2.0'

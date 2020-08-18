@@ -110,19 +110,15 @@ dependencies {
     testImplementation "com.github.fabioCollini.daggermock:daggermock-kotlin:$dagger_mock"
     testImplementation "com.github.fabioCollini.daggermock:daggermock:$dagger_mock"
 
-    testImplementation 'org.assertj:assertj-core:2.5.0'
+    testImplementation "org.assertj:assertj-core:$assertj_version"
 
-
-    testImplementation "org.robolectric:robolectric:3.8"
+    testImplementation "org.robolectric:robolectric:$robolectric_version"
     testImplementation "androidx.test:rules:$runner_version"
     testImplementation "androidx.test:runner:$runner_version"
 
     testImplementation "com.github.tmurakami:dexopener:$dex_opener"
     testImplementation "org.mockito:mockito-android:$mockito_version"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
-    testImplementation('com.nhaarman:mockito-kotlin-kt1.1:1.5.0') {
-        exclude group: 'org.jetbrains.kotlin'
-    }
 
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test:core-ktx:$core_ktx_test_version"
