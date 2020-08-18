@@ -12,10 +12,10 @@ class UserViewModel (private val dataManager: DataManager) : ViewModel(){
 
     private suspend fun doUpdateCache(){
         if(shouldUpdateUsersCache())
-            fetchRecentPlants()
+            fetchRecentUsers()
     }
 
-    suspend fun fetchRecentPlants(){
+    suspend fun fetchRecentUsers(){
         val users = dataManager.userService.getUsers()
         users?.let {
             dataManager.userRepository.doInsertAll(it)

@@ -1,18 +1,14 @@
 package com.picpay.desafio.android
 
-import androidx.lifecycle.ViewModel
-import com.nhaarman.mockito_kotlin.mock
 import com.picpay.desafio.android.di.component.ApplicationComponent
 import com.picpay.desafio.android.di.module.ApplicationModule
 import com.picpay.desafio.android.helper.CACHE_DURATION
 import com.picpay.desafio.android.model.DataManager
-import com.picpay.desafio.android.view.main.MainActivity
 import com.picpay.desafio.android.viewmodel.UserViewModel
 import it.cosenonjaviste.daggermock.DaggerMock
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -46,7 +42,7 @@ class UserViewModelTest {
     fun isValidFetchRecentPlants() {
         runBlocking {
             assertTrue(dataManager.userRepository.doGetAll().first().isEmpty())
-            viewModel.fetchRecentPlants()
+            viewModel.fetchRecentUsers()
             val users = dataManager.userRepository.doGetAll().first()
             assertEquals(users, dataManager.userService.getUsers())
         }
