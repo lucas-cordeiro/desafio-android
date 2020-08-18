@@ -31,7 +31,7 @@ class UserViewModel (private val dataManager: DataManager) : ViewModel(){
         }
     }
 
-    private val _loading = MutableLiveData<Boolean>(false)
+    private val _loading = MutableLiveData<Boolean>(true)
     val loading: LiveData<Boolean>
         get() = _loading
 
