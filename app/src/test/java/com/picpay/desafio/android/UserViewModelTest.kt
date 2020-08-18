@@ -39,7 +39,7 @@ class UserViewModelTest {
     }
 
     @Test
-    fun isValidFetchRecentPlants() {
+    fun isValidFetchRecentUsers() {
         runBlocking {
             assertTrue(dataManager.userRepository.doGetAll().first().isEmpty())
             viewModel.fetchRecentUsers()
