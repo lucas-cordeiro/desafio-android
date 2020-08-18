@@ -6,12 +6,22 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
     <style name="ScreenTitleTextView" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">28sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.FullScreen" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="AppTheme.Splash" parent="AppTheme.FullScreen">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
 </resources>
